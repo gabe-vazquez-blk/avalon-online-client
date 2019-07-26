@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import MainContainer from './containers/MainContainer';
+import Navbar from './components/Navbar'
+import SignUpForm from './components/SignUpForm'
+import GameBoard from './components/GameBoard';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React from 'react';
+
+class App extends React.Component {
+  
+  // STATE
+  state = {
+    currentUser: '',
+  }
+
+  // HELPER FUNCTIONS
+  navBtns = (e)=>{
+    if (e.target.name === "signup"){
+      // window.history.push("/signup")
+
+      window.history.pushState(null, null, '/signup')
+    } else if(e.target.name === "login"){
+      console.log("Login")
+    }
+  }
+
+  // FORM EVENT HANDLERS
+  setUser = (user)=>{
+    this.setState({
+      currentUser: user
+    })
+  }
+
+  // RENDER
+  render() {
+
+    return (
+      <div>
+        <Navbar handleClick={this.navBtns}/>
+        <MainContainer 
+          setUser={this.setUser}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
