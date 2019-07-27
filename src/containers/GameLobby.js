@@ -36,7 +36,6 @@ class GameLobby extends Component {
 
     render() {
         const {games, selectedGame} = this.state
-        console.log("RENDERING GAMES", games)
         return (
             <div className="welcome">
                 <ActionCable

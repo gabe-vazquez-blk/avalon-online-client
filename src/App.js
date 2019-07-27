@@ -1,6 +1,8 @@
 import './App.css'
 import Navbar from './containers/Navbar'
 import Lobby from './containers/Lobby';
+//for testing
+//import GameLobby from './containers/GameLobby'
 
 import React from 'react';
 
@@ -18,11 +20,12 @@ class App extends React.Component {
     }, () => (this.props.history.push("/lobby")))
   }
 
-  // RENDER
+  // RENDER <Lobby setUser={this.setUser} />
   render() {
     return (
       <div>
         <Navbar setUser={this.setUser}/>
+        
         <Lobby setUser={this.setUser} />
       </div>
     );

@@ -21,6 +21,10 @@ class NewGameForm extends Component {
             headers: HEADERS,
             body: JSON.stringify(this.state)
         })
+        this.setState({
+            name: '',
+            num_of_players: ''
+        })
     }
 //need to change classname for css
     render() {
