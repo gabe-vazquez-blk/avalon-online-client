@@ -5,7 +5,7 @@ class NewMessageForm extends Component {
 
     state = {
         text: '',
-        game_id: this.props.game_id,
+        game_id: this.props.game_id
     }
     
     componentWillReceiveProps = nextProps => {
@@ -23,7 +23,7 @@ class NewMessageForm extends Component {
             headers: {
                 "Content-Type": 'application/json',
                 "Accept": 'application/json',
-                "Authorization": 1 //preset to test
+                "Authorization": 21 //preset to test
             },
             body: JSON.stringify(this.state)
         })

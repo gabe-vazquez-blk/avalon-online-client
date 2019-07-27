@@ -20,8 +20,8 @@ class Lobby extends Component {
       .then(games => this.setState({games}))
   }
 
-  setSelectedGame = id => {
-      this.setState({selectedGame: id})
+  setSelectedGame = game => {
+      this.setState({selectedGame: game})
   }
 
   handleReceivedGame = game => {
@@ -29,10 +29,11 @@ class Lobby extends Component {
   }
 
   handleReceivedMessage = message => {
+    console.log("GIT A MSG!!")
       const games = [...this.state.games]
       const game = games.find(game => game.id === message.game_id)
       game.messages = [...game.messages, message]
-      this.setState({ games })
+      this.setState({ games }, ()=>console.log(this.state.games))
   }
 
   render() {
@@ -55,12 +56,10 @@ class Lobby extends Component {
                 ) : null }
                 <h2>Games</h2>
                 <ul>
-                    {games.map(game => <li key={game.id} onClick={() => this.setSelectedGame(game.id)}>{game.name} ({game.num_of_players} Players)</li>)}
+                    {games.map(game => <li key={game.id} onClick={() => this.setSelectedGame(game)}>{game.name} ({game.num_of_players} Players)</li>)}
                 </ul>
                 <NewGameForm />
-                {selectedGame ? (
-                    <ChatRoom game={findSelectedGame(games, selectedGame)} />
-                ) : null}    
+                {selectedGame ? <ChatRoom game={this.state.selectedGame} /> : null}    
             </div>
             <Switch>
               <Route path="/game" render={() => <Game />} />
