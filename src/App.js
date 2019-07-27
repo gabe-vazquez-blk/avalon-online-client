@@ -1,8 +1,6 @@
 import './App.css'
-import MainContainer from './containers/MainContainer';
-import Navbar from './components/Navbar'
-import SignUpForm from './components/SignUpForm'
-import GameBoard from './components/GameBoard';
+import Navbar from './containers/Navbar'
+import Lobby from './containers/Lobby';
 
 import React from 'react';
 
@@ -11,17 +9,6 @@ class App extends React.Component {
   // STATE
   state = {
     currentUser: '',
-  }
-
-  // HELPER FUNCTIONS
-  navBtns = (e)=>{
-    if (e.target.name === "signup"){
-      // window.history.push("/signup")
-
-      window.history.pushState(null, null, '/signup')
-    } else if(e.target.name === "login"){
-      console.log("Login")
-    }
   }
 
   // FORM EVENT HANDLERS
@@ -36,10 +23,8 @@ class App extends React.Component {
 
     return (
       <div>
-        <Navbar handleClick={this.navBtns}/>
-        <MainContainer 
-          setUser={this.setUser}
-        />
+        <Navbar />
+        <Lobby setUser={this.setUser} />
       </div>
     );
   }

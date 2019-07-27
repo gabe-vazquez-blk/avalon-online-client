@@ -1,0 +1,36 @@
+import React from 'react';
+import SignUpForm from '../components/SignUpForm'
+import LoginForm from '../components/LoginForm'
+import Welcome from '../components/Welcome'
+import { Menu, Button } from 'semantic-ui-react'
+import { Link, Route, Switch } from 'react-router-dom'
+
+
+function Navbar(){
+
+    return (
+      <div>
+        <Menu >
+          <Menu.Item header >
+            <Link to="/">Avalon Online</Link>
+          </Menu.Item>
+
+          <Menu.Item>
+            <Link to="/signup"><Button primary name="signup">Sign up</Button></Link>
+          </Menu.Item>
+
+          <Menu.Item>
+            <Link to="/login"><Button secondary name="login">Log-in</Button></Link>
+          </Menu.Item>
+
+        </Menu>
+        <Switch>
+          <Route path="/login" render={() => <LoginForm />} />
+          <Route path="/signup" render={() => <SignUpForm />} />
+          <Route path="/" render={() => <Welcome />} />
+        </ Switch>
+      </div>
+    );
+  }
+
+export default Navbar;
