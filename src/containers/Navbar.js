@@ -8,7 +8,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 
 function Navbar(props){
 
-    const { routerProps } = props
+    const { routerProps, setUser } = props
 
     return (
       <div>
@@ -27,8 +27,8 @@ function Navbar(props){
 
         </Menu>
         <Switch>
-          <Route path="/login" render={() => <LoginForm routerProps={routerProps}/>} />
-          <Route path="/signup" render={() => <SignUpForm routerProps={routerProps}/>} />
+          <Route path="/login" render={() => <LoginForm  setUser={setUser} />} />
+          <Route path="/signup" render={() => <SignUpForm setUser={setUser} />} />
           <Route path="/" render={() => <Welcome />} />
         </ Switch>
       </div>

@@ -15,14 +15,14 @@ class App extends React.Component {
   setUser = (user)=>{
     this.setState({
       currentUser: user
-    })
+    }, () => (this.props.history.push("/lobby")))
   }
 
   // RENDER
   render() {
     return (
       <div>
-        <Navbar routerProps={this.props}/>
+        <Navbar setUser={this.setUser}/>
         <Lobby setUser={this.setUser} />
       </div>
     );

@@ -19,7 +19,6 @@ class LoginForm extends Component {
   handleSubmit = (e) =>{
     e.preventDefault()
     const { username, password } = this.state
-    console.log(username, password)
 
     fetch("http://localhost:3000/login", {
       method: "POST",
@@ -33,8 +32,14 @@ class LoginForm extends Component {
       })
     })
       .then(res => res.json())
-      .then(console.log)
-      .then(() => this.props.routerProps.history.push("/lobby"))
+      .then(response => {
+        console.log(response)
+        if (response.errors) {
+          alert(response.errors)
+        } else {
+          this.props.setUser(response)
+        }
+      })
   }
 
   render() {

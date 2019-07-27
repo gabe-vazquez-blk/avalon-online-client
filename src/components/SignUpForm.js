@@ -36,8 +36,10 @@ class SignUpForm extends Component {
         })
       })
         .then(res => res.json())
-        .then(console.log)
-        .then(()=>this.props.routerProps.history.push("/lobby"))
+        .then((response)=>{
+          console.log(response)
+          this.props.setUser(response)
+        })
     }
   }
 
