@@ -1,29 +1,51 @@
 import React, { Component } from 'react';
 import Player from './Player'
-import {Grid, Image, Card} from 'semantic-ui-react'
+import QuestCoins from './QuestCoins'
+import VoteTrack from './VoteTrack'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {Grid} from 'semantic-ui-react'
 
 class GameBoard extends Component {
+
   render() {
     return (
-      <Grid verticalAlign='middle' columns={7} centered>
-        <Grid.Row>
-          <Grid.Column>
-           <Player />
-          </Grid.Column>
-          <Grid.Column>
-            <Player />
-          </Grid.Column>
-          <Grid.Column>
-            <Player />
-          </Grid.Column>
-          <Grid.Column>
-            <Player />
-          </Grid.Column>
-          <Grid.Column>
-            <Player />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+
+      <Route exact path="/gameboard" render={(routerProps) => {
+        return (
+          <div>
+            <br></br>
+            <br></br>
+            <Grid verticalAlign='middle' columns={7} centered>
+              <Grid.Row>
+                <Grid.Column>
+                <Player />
+                </Grid.Column>
+                <Grid.Column>
+                  <Player />
+                </Grid.Column>
+                <Grid.Column>
+                  <Player />
+                </Grid.Column>
+                <Grid.Column>
+                  <Player />
+                </Grid.Column>
+                <Grid.Column>
+                  <Player />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <QuestCoins />
+            <br></br>
+            <br></br>
+            <VoteTrack />
+          </div>
+        )
+      }} />
     );
   }
 }
