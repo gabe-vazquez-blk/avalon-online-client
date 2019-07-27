@@ -7,11 +7,16 @@ class Lobby extends Component {
   render() {
 
     return (
-      <div>
-        <Switch>
-          <Route path="/game" render={() => <Game />} />
-        </ Switch>
-      </div>
+      <Route exact path="/lobby" render={(routerProps) => {
+        return (
+          <div>
+            <h1 className="welcome">Lobby...</h1>
+            <Switch>
+              <Route path="/game" render={() => <Game />} />
+            </ Switch>
+          </div>
+        )
+      }}/>
     );
   }
 }

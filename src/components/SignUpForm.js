@@ -21,7 +21,7 @@ class SignUpForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const {username, password, confirmPassword} = this.state
-    // console.log(username, password, confirmPassword)
+    console.log(username, password, confirmPassword)
 
     if (password === confirmPassword) {
       fetch(`${API}/signup`, {
@@ -31,12 +31,11 @@ class SignUpForm extends Component {
           "Accept": "application/json"
         },
         body: JSON.stringify({ 
-          username: username, 
-          password: password 
-        })
+          username: username,
+          password: password })
       })
         .then(res => res.json())
-        .then(response => console.log(response))
+        .then(console.log)
     }
   }
 
