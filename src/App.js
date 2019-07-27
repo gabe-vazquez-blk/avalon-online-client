@@ -20,10 +20,9 @@ class App extends React.Component {
 
   // RENDER
   render() {
-
     return (
       <div>
-        <Navbar />
+        <Navbar routerProps={this.props}/>
         <Lobby setUser={this.setUser} />
       </div>
     );

@@ -6,7 +6,9 @@ import { Menu, Button } from 'semantic-ui-react'
 import { Link, Route, Switch } from 'react-router-dom'
 
 
-function Navbar(){
+function Navbar(props){
+
+    const { routerProps } = props
 
     return (
       <div>
@@ -26,7 +28,7 @@ function Navbar(){
         </Menu>
         <Switch>
           <Route path="/login" render={() => <LoginForm />} />
-          <Route path="/signup" render={() => <SignUpForm />} />
+          <Route path="/signup" render={() => <SignUpForm routerProps={routerProps}/>} />
           <Route path="/" render={() => <Welcome />} />
         </ Switch>
       </div>
