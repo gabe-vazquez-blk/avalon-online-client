@@ -32,7 +32,8 @@ class SignUpForm extends Component {
         },
         body: JSON.stringify({ 
           username: username,
-          password: password })
+          password: password
+        })
       })
         .then(res => res.json())
         .then(console.log)

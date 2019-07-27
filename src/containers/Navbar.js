@@ -27,7 +27,7 @@ function Navbar(props){
 
         </Menu>
         <Switch>
-          <Route path="/login" render={() => <LoginForm />} />
+          <Route path="/login" render={() => <LoginForm routerProps={routerProps}/>} />
           <Route path="/signup" render={() => <SignUpForm routerProps={routerProps}/>} />
           <Route path="/" render={() => <Welcome />} />
         </ Switch>

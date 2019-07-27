@@ -10,6 +10,33 @@ class LoginForm extends Component {
     password: ""
   }
 
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSubmit = (e) =>{
+    e.preventDefault()
+    const { username, password } = this.state
+    console.log(username, password)
+
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ 
+        username: username, 
+        password: password
+      })
+    })
+      .then(res => res.json())
+      .then(console.log)
+      .then(() => this.props.routerProps.history.push("/lobby"))
+  }
+
   render() {
 
     const { username, password } = this.state
@@ -20,21 +47,25 @@ class LoginForm extends Component {
           <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
 
-              <Form size='large'>
+              <Form size='large' onSubmit={this.handleSubmit}>
                 <Segment stacked>
                   <Form.Input 
                     fluid icon='user' 
                     iconPosition='left' 
                     placeholder='Username'
-                    value={username} 
+                    name='username' 
+                    value={username}
+                    onChange={this.handleChange}
                   />
                   <Form.Input
                     fluid
                     icon='lock'
                     iconPosition='left'
                     placeholder='Password'
+                    name='password'
                     type='password'
                     value={password}
+                    onChange={this.handleChange}
                   />
 
                   <Button color='green' fluid size='large'>
