@@ -17,7 +17,7 @@ class Game extends Component {
         return (
           <Grid>
             <Grid.Column width={13}>
-              <Board />
+              <Board playerNum={this.props.selectedGame.num_of_players}/>
             </Grid.Column>
             <Grid.Column width={3}>
                 <ChatRoom selectedGame={this.props.selectedGame} currentUser={this.props.currentUser} handleReceivedMessage={this.props.handleReceivedMessage}/>
