@@ -49,6 +49,8 @@ class App extends React.Component {
 
   // RENDER <Lobby setUser={this.setUser} />
   render() {
+    console.log(this.state.currentUser);
+    
     return (
       <div>
         <Navbar setUser={this.setUser}/>
