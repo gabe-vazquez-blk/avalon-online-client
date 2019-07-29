@@ -31,13 +31,17 @@ class ChatRoom extends Component {
         const {id, name, num_of_players, messages} = this.props.selectedGame
         console.log(messages)
         return (
-          <Segment secondary style={{ height: "92vh", overflow: 'auto'}}>
-                <Comment.Group>
+          <Segment secondary style={{ height: "92vh"}}>
+            
+            <Comment.Group>
               <Header as='h3' dividing>{name}</Header>
-                    {this.orderedMessages(messages)}
-                </Comment.Group>
-                <NewMessageForm game_id={id} currentUser={this.props.currentUser}/>
-            </Segment>
+                <Segment style={{ height: "70vh", overflow: 'auto' }}>
+                  {this.orderedMessages(messages)}
+                </Segment>
+            </Comment.Group>
+            
+            <NewMessageForm game_id={id} currentUser={this.props.currentUser}/>
+          </Segment>
         );
     }
 }

@@ -32,7 +32,7 @@ class NewMessageForm extends Component {
     }
     render() {
         return (
-            <div style={{position: "absolute", right: "0px", bottom: "0px", width: "100%"}}>
+            <div style={{ position: "absolute", right: "1vw", bottom: "0px", width: "90%"} }>
                 <Form reply onSubmit={this.handleSubmit}>
                     <Form.TextArea type="text" value={this.state.text} onChange={this.handleChange} placeholder="send a message..." />
                     <Button content='Send' type="submit" />
