@@ -5,6 +5,7 @@ import ChatRoom from '../components/ChatRoom';
 import Cable from '../components/Cable';
 import NewGameForm from '../components/NewGameForm';
 import { ActionCable } from 'react-actioncable-provider';
+import { List, Grid, Segment } from 'semantic-ui-react';
 
 class Lobby extends Component {
 
@@ -37,12 +38,12 @@ class Lobby extends Component {
 
   render() {
     const {games, selectedGame} = this.state
-    console.log(games)
+
     return (
 
       <Route exact path="/lobby" render={(routerProps) => {
         return (
-          <div className="welcome">
+          <div>
               <ActionCable
                   channel={{channel: 'GamesChannel'}}
                   onReceived={this.handleReceivedGame}
@@ -53,10 +54,23 @@ class Lobby extends Component {
                       handleReceivedMessage={this.handleReceivedMessage}
                   />
               ) : null }
-              <h2>Games</h2>
-              <ul>
-                  {games.map(game => <li key={game.id} onClick={() => this.setSelectedGame(game)}>{game.name} ({game.num_of_players} Players)</li>)}
-              </ul>
+            <br></br><br></br><br></br><br></br><br></br>
+            <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle'>
+              <Grid.Column style={{ maxWidth: 450 }}>
+                <Segment style={{ overflow: 'auto', maxHeight: 300 }}>
+                  <h3 style={{textAlign: 'left'}}>Games in session...</h3>
+                    <List animated verticalAlign='left'>
+                      {games.map(game => {
+                        return(
+                          <List.Item key={game.id} onClick={() => this.setSelectedGame(game)}>
+                            <Segment color='green'>{game.name} ({game.num_of_players} Players)</Segment>
+                          </List.Item>
+                        )}
+                      )}
+                    </List>
+                  </Segment>
+              </Grid.Column>
+            </Grid>
               <NewGameForm />
               {selectedGame ? <ChatRoom game={this.state.selectedGame} /> : null}    
           </div>
