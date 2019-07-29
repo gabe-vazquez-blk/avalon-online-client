@@ -10,21 +10,14 @@ class Game extends Component {
     return (
       <Route exact path="/game" render={(routerProps) => {
         return (
-<<<<<<< HEAD
-          <Fragment>
-            <Board />
-            <ChatRoom selectedGame={this.props.selectedGame} currentUser={this.props.currentUser}/>
-          </Fragment>
-=======
           <Grid>
             <Grid.Column width={13}>
               <Board />
             </Grid.Column>
             <Grid.Column width={3}>
-                <ChatRoom selectedGame={this.props.selectedGame} />
+                <ChatRoom selectedGame={this.props.selectedGame} currentUser={this.props.currentUser}/>
             </Grid.Column>
           </Grid>
->>>>>>> style-chat
         )
       }}/>
     );
