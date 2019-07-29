@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NewMessageForm from './NewMessageForm'
 
+import { ActionCable } from 'react-actioncable-provider';
 
 class ChatRoom extends Component {
 
@@ -15,8 +16,13 @@ class ChatRoom extends Component {
    
     render() {
         const {id, name, num_of_players, messages} = this.props.selectedGame
+      
         return (
             <div className="welcome">
+              <ActionCable 
+              channel={{ channel: 'MessagesChannel', game: parseInt(this.props.selectedGame.id) }}
+              onReceived={this.props.handleReceivedMessage}
+            />
                 <h2>{name}</h2>
                 <ul>
                     {this.orderedMessages(messages)}

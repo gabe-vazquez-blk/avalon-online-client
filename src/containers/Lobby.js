@@ -22,12 +22,6 @@ class Lobby extends Component {
                   channel={{channel: 'GamesChannel'}}
                   onReceived={handleReceivedGame}
               />
-              {games.length ? (
-                  <Cable
-                      games={games}
-                      handleReceivedMessage={handleReceivedMessage}
-                  />
-              ) : null }
             <br></br><br></br><br></br><br></br><br></br>
             <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
