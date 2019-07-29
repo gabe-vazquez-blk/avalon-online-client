@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Board from '../components/Board'
 import ChatRoom from '../components/ChatRoom';
@@ -7,8 +7,13 @@ import { ActionCable } from 'react-actioncable-provider';
 
 class Game extends Component {
   render() {
+    // console.log("SELECTED GAME", this.props.selectedGame)
+    const {selectedGame} = this.props
     return (
-      <Route exact path="/game" render={(routerProps) => {
+      <Route exact path={'/game/:id'} render={(routerProps) => {
+        
+        // const foundGame = routerProps.match.params.id
+
         return (
           <Grid>
             <Grid.Column width={13}>
