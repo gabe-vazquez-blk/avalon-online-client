@@ -31,7 +31,7 @@ class ChatRoom extends Component {
         const {id, name, num_of_players, messages} = this.props.selectedGame
         console.log(messages)
         return (
-          <Segment secondary style={{height: "100vh"}}>
+          <Segment secondary style={{ height: "92vh", overflow: 'auto'}}>
                 <Comment.Group>
               <Header as='h3' dividing>{name}</Header>
                     {this.orderedMessages(messages)}

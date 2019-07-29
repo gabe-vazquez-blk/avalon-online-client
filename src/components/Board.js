@@ -32,9 +32,6 @@ class Board extends Component {
         </Grid>
         <br></br>
         <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
         <QuestCoins />
         <br></br>
         <br></br>
