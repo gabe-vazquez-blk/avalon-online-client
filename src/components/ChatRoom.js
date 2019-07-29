@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import NewMessageForm from './NewMessageForm'
+import NewMessageForm from './NewMessageForm';
+import { Segment, Comment, Header } from 'semantic-ui-react';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 class ChatRoom extends Component {
@@ -9,20 +12,32 @@ class ChatRoom extends Component {
           (a, b) => new Date(a.created_at) - new Date(b.created_at)
         )
         return sortedMessages.map(message => {
-          return <li key={message.id}>{message.user_id} says: {message.text}</li>;
-        })
+          return(
+            <Comment>
+              <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
+              <Comment.Content>
+                <Comment.Author as='a'>{message.user_id}</Comment.Author>
+                <Comment.Metadata>
+                  <span><Moment fromNow>{message.created_at}</Moment></span>
+                </Comment.Metadata>
+                <Comment.Text key={message.id}>{message.text}</Comment.Text>
+              </Comment.Content>
+            </Comment>
+            );
+          })
       }
    
     render() {
         const {id, name, num_of_players, messages} = this.props.selectedGame
+        console.log(messages)
         return (
-            <div className="welcome">
-                <h2>{name}</h2>
-                <ul>
+          <Segment secondary style={{height: "100vh"}}>
+                <Comment.Group>
+              <Header as='h3' dividing>{name}</Header>
                     {this.orderedMessages(messages)}
-                </ul>
+                </Comment.Group>
                 <NewMessageForm game_id={id} />
-            </div>
+            </Segment>
         );
     }
 }
