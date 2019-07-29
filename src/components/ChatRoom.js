@@ -30,23 +30,11 @@ class ChatRoom extends Component {
    
     render() {
         const {id, name, num_of_players, messages} = this.props.selectedGame
-<<<<<<< HEAD
         console.log(messages)
         return (
           <Segment secondary style={{ height: "92vh", overflow: 'auto'}}>
                 <Comment.Group>
               <Header as='h3' dividing>{name}</Header>
-=======
-      
-        return (
-            <div className="welcome">
-              <ActionCable 
-              channel={{ channel: 'MessagesChannel', game: parseInt(this.props.selectedGame.id) }}
-              onReceived={this.props.handleReceivedMessage}
-            />
-                <h2>{name}</h2>
-                <ul>
->>>>>>> msg
                     {this.orderedMessages(messages)}
                 </Comment.Group>
                 <NewMessageForm game_id={id} currentUser={this.props.currentUser}/>
