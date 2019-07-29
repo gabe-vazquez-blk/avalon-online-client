@@ -9,12 +9,12 @@ class ChatRoom extends Component {
           (a, b) => new Date(a.created_at) - new Date(b.created_at)
         )
         return sortedMessages.map(message => {
-          return <li key={message.id}>{message.text}</li>;
+          return <li key={message.id}>{message.user_id} says: {message.text}</li>;
         })
       }
    
     render() {
-        const {id, name, num_of_players, messages} = this.props.game
+        const {id, name, num_of_players, messages} = this.props.selectedGame
         return (
             <div className="welcome">
                 <h2>{name}</h2>

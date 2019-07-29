@@ -23,7 +23,7 @@ class NewMessageForm extends Component {
             headers: {
                 "Content-Type": 'application/json',
                 "Accept": 'application/json',
-                "Authorization": 21 //preset to test
+                "Authorization": 26 //preset to test
             },
             body: JSON.stringify(this.state)
         })

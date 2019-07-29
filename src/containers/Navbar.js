@@ -9,7 +9,6 @@ import { Link, Route, Switch } from 'react-router-dom'
 function Navbar(props){
 
     const { routerProps, setUser } = props
-
     return (
       <div>
         <Menu >
