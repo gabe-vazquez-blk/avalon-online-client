@@ -22,12 +22,13 @@ class Lobby extends Component {
                   channel={{channel: 'GamesChannel'}}
                   onReceived={handleReceivedGame}
               />
+        ) : null}
             <br></br><br></br><br></br><br></br><br></br>
             <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
                 <Segment style={{ overflow: 'auto', maxHeight: 300 }}>
                   <h3 style={{textAlign: 'left'}}>Games in session...</h3>
-                    <List animated verticalAlign='left'>
+                    <List animated verticalAlign='middle'>
                       {games.map(game => {
                         return(
                           <List.Item key={game.id} onClick={() => setSelectedGame(game)}>

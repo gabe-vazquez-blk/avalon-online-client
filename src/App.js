@@ -28,18 +28,20 @@ class App extends React.Component {
   }
 
   handleReceivedGame = resp => {
+    console.log("RECEIVED GAME", resp)
     const {game} = resp
     console.log("SETTING GAME", game)
     this.setState({games: [...this.state.games, game]})
   }
 
   handleReceivedMessage = resp => {
-    const { message } = resp
+    console.log("RECEIVED MSGGG", resp)
+     const { message } = resp
     const games = [...this.state.games]
     const game = games.find(game => game.id === message.game_id)
     game.messages = [...game.messages, message]
     console.log("SETT MSG", message, game.messages, games)
-    this.setState({ games })
+    this.setState({ games }) 
   }
 
   // FORM EVENT HANDLERS
@@ -55,7 +57,9 @@ class App extends React.Component {
     return (
       <div>
         <Navbar setUser={this.setUser}/>
+
         <Lobby setUser={this.setUser} handleReceivedGame={this.handleReceivedGame} handleReceivedMessage={this.handleReceivedMessage} setSelectedGame={this.setSelectedGame} games={this.state.games} selectedGame={this.state.selectedGame} currentUser={this.state.currentUser} />
+
         {this.state.selectedGame ? <Game selectedGame={this.state.selectedGame} currentUser={this.state.currentUser} handleReceivedMessage={this.handleReceivedMessage}/> : null}/>
       </div>
     );
