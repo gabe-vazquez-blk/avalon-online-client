@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Player from './Player'
 import QuestCoins from './QuestCoins'
 import VoteTrack from './VoteTrack'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {Grid} from 'semantic-ui-react'
 
 class Board extends Component {

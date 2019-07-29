@@ -1,6 +1,7 @@
 import './App.css'
 import Navbar from './containers/Navbar'
 import Lobby from './containers/Lobby';
+import Game from './containers/Game';
 //for testing
 //import GameLobby from './containers/GameLobby'
 
@@ -25,8 +26,8 @@ class App extends React.Component {
     return (
       <div>
         <Navbar setUser={this.setUser}/>
-        
         <Lobby setUser={this.setUser} />
+        <Game />
       </div>
     );
   }

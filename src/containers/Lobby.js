@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Game from './Game'
-import { Route, Switch } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { API_ROOT } from '../constants';
 import ChatRoom from '../components/ChatRoom';
 import Cable from '../components/Cable';
@@ -38,32 +37,28 @@ class Lobby extends Component {
 
   render() {
     const {games, selectedGame} = this.state
+    console.log(games)
     return (
 
       <Route exact path="/lobby" render={(routerProps) => {
         return (
-          <div>
-            <div className="welcome">
-                <ActionCable
-                    channel={{channel: 'GamesChannel'}}
-                    onReceived={this.handleReceivedGame}
-                />
-                {this.state.games.length ? (
-                    <Cable
-                        games={games}
-                        handleReceivedMessage={this.handleReceivedMessage}
-                    />
-                ) : null }
-                <h2>Games</h2>
-                <ul>
-                    {games.map(game => <li key={game.id} onClick={() => this.setSelectedGame(game)}>{game.name} ({game.num_of_players} Players)</li>)}
-                </ul>
-                <NewGameForm />
-                {selectedGame ? <ChatRoom game={this.state.selectedGame} /> : null}    
-            </div>
-            <Switch>
-              <Route path="/game" render={() => <Game />} />
-            </ Switch>
+          <div className="welcome">
+              <ActionCable
+                  channel={{channel: 'GamesChannel'}}
+                  onReceived={this.handleReceivedGame}
+              />
+              {this.state.games.length ? (
+                  <Cable
+                      games={games}
+                      handleReceivedMessage={this.handleReceivedMessage}
+                  />
+              ) : null }
+              <h2>Games</h2>
+              <ul>
+                  {games.map(game => <li key={game.id} onClick={() => this.setSelectedGame(game)}>{game.name} ({game.num_of_players} Players)</li>)}
+              </ul>
+              <NewGameForm />
+              {selectedGame ? <ChatRoom game={this.state.selectedGame} /> : null}    
           </div>
         )
       }}/>
