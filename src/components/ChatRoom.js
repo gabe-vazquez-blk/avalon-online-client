@@ -21,7 +21,7 @@ class ChatRoom extends Component {
                 <ul>
                     {this.orderedMessages(messages)}
                 </ul>
-                <NewMessageForm game_id={id} />
+                <NewMessageForm game_id={id} currentUser={this.props.currentUser}/>
             </div>
         );
     }

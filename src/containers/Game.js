@@ -11,7 +11,7 @@ class Game extends Component {
         return (
           <Fragment>
             <Board />
-            <ChatRoom selectedGame={this.props.selectedGame} />
+            <ChatRoom selectedGame={this.props.selectedGame} currentUser={this.props.currentUser}/>
           </Fragment>
         )
       }}/>

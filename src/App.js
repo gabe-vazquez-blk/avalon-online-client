@@ -55,7 +55,7 @@ class App extends React.Component {
       <div>
         <Navbar setUser={this.setUser}/>
         <Lobby setUser={this.setUser} handleReceivedGame={this.handleReceivedGame} handleReceivedMessage={this.handleReceivedMessage} setSelectedGame={this.setSelectedGame} games={this.state.games} selectedGame={this.state.selectedGame} currentUser={this.state.currentUser} />
-        {this.state.selectedGame ? <Game selectedGame={this.state.selectedGame} /> : null}/>
+        {this.state.selectedGame ? <Game selectedGame={this.state.selectedGame} currentUser={this.state.currentUser}/> : null}/>
       </div>
     );
   }
