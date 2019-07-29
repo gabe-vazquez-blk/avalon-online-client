@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { API_ROOT } from '../constants';
+import { Button, Comment, Form, Header, Segment } from 'semantic-ui-react'
 
 class NewMessageForm extends Component {
 
@@ -31,11 +32,11 @@ class NewMessageForm extends Component {
     }
     render() {
         return (
-            <div className="welcome">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.text} onChange={this.handleChange} placeholder="send a message..."/>
-                    <input type="submit" />
-                </form>
+            <div style={{position: "absolute", right: "0px", bottom: "0px", width: "100%"}}>
+                <Form reply onSubmit={this.handleSubmit}>
+                    <Form.TextArea type="text" value={this.state.text} onChange={this.handleChange} placeholder="send a message..." />
+                    <Button content='Send' type="submit" />
+                </Form>
             </div>
         );
     }
