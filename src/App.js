@@ -14,9 +14,10 @@ class App extends React.Component {
   
   // STATE
   state = {
-    currentUser: '',
+    currentUser: null,
     games: [],
-    selectedGame: null
+    selectedGame: null,
+    numPlayers: ''
   }
 
   componentDidMount() {
@@ -30,14 +31,11 @@ class App extends React.Component {
   }
 
   handleReceivedGame = resp => {
-    console.log("RECEIVED GAME", resp)
     const {game} = resp
-    console.log("SETTING GAME", game)
     this.setState({games: [...this.state.games, game]})
   }
 
   handleReceivedMessage = resp => {
-    console.log("RECEIVED MSGGG", resp)
      const { message } = resp
     const games = [...this.state.games]
     const game = games.find(game => game.id === message.game_id)
@@ -52,6 +50,7 @@ class App extends React.Component {
       currentUser: user
     }, () => (this.props.history.push("/lobby")))
   }
+
 
   // RENDER <Lobby setUser={this.setUser} />
   render() {
@@ -75,14 +74,15 @@ class App extends React.Component {
           }/>
 
           <Route path="/game/:id" render={(routerProps) =>{
-            const selectedGame = this.state
+            const selectedGame = this.state.selectedGame
 
-              if(selectedGame){
+              if(this.state.selectedGame && this.state.currentUser){
                 return(
 
                   <Game
                     selectedGame={this.state.selectedGame}
-                    currentUser={this.state.currentUser} 
+                    currentUser={this.state.currentUser}
+                    numPlayers={selectedGame.num_of_players} 
                   />
                 )
               } else {

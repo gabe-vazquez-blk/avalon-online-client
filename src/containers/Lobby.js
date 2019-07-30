@@ -40,7 +40,7 @@ class Lobby extends Component {
                   </Segment>
               </Grid.Column>
             </Grid>
-              <NewGameForm /> 
+              <NewGameForm setNumPlayer={this.props.setNumPlayer}/> 
           </div>
         )
       }}/>

@@ -5,7 +5,7 @@ import { Form, Input, Segment, Button, Grid } from 'semantic-ui-react';
 class NewGameForm extends Component {
     state = {
         name: '',
-        num_of_players: ''
+        numPlayers: ''
     }
 
     handleChange = e => {
@@ -23,7 +23,7 @@ class NewGameForm extends Component {
         })
         this.setState({
             name: '',
-            num_of_players: ''
+            numPlayers: ''
         })
     }
 //need to change classname for css
