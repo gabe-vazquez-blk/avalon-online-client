@@ -19,7 +19,12 @@ class Board extends Component {
     for (let i=0; i<playerNum; i++){
       playerCards.push((
         <Grid.Column key={i}>
-          <Player />
+          <Player 
+            approve={this.props.approve}
+            reject={this.props.reject}
+            success={this.props.success}
+            fail={this.props.fail}
+          />
         </Grid.Column>
       ))
     }
