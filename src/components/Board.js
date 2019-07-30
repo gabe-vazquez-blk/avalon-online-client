@@ -12,18 +12,18 @@ class Board extends Component {
     playerNum: parseInt(this.props.playerNum)
   }
 
-  
+  componentDidMount() {
+    fetch(`${API_ROOT}/get_roles/${this.state.playerNum}`)
+    .then(resp => resp.json())
+    .then(roles => this.setState({roles}))
+  }
 
-  playerCard = (playerNum) => {
-    const playerCards = []
-    for (let i=0; i<playerNum; i++){
-      playerCards.push((
-        <Grid.Column key={i}>
-          <Player />
-        </Grid.Column>
-      ))
-    }
-    return playerCards
+  playerCards = () => {
+    return this.state.roles.map(role => {
+      return (<Grid.Column key={role.id}>
+        <Player role={role}/>
+      </Grid.Column>)
+    })
   }
 
   render() {
@@ -33,7 +33,7 @@ class Board extends Component {
         <br></br>
         <Grid verticalAlign='middle' columns={7} centered>
           <Grid.Row>
-            {this.playerCard(this.state.playerNum)}
+            {this.playerCards()}
           </Grid.Row>
         </Grid>
         <br></br>
