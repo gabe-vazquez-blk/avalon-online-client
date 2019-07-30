@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import SignUpForm from '../components/SignUpForm'
 import LoginForm from '../components/LoginForm'
 import Welcome from '../components/Welcome'
@@ -8,21 +8,35 @@ import { Link, Route, Switch } from 'react-router-dom'
 
 function Navbar(props){
 
-    const { routerProps, setUser } = props
+    const { routerProps, setUser, currentUser, logout } = props
     return (
       <div>
         <Menu >
-          <Menu.Item header >
-            <Link to="/lobby">Avalon Online</Link>
+          <Menu.Item as={Link} name='lobby' to='/lobby' >
+            Avalon Online
           </Menu.Item>
 
-          <Menu.Item>
-            <Link to="/signup"><Button primary name="signup">Sign up</Button></Link>
-          </Menu.Item>
+          {!currentUser 
+            ? <Menu.Menu position='right'>
+                  <Menu.Item>
+                    <Link to="/signup"><Button primary name="signup">Sign up</Button></Link>
+                  </Menu.Item>
 
-          <Menu.Item>
-            <Link to="/login"><Button secondary name="login">Log-in</Button></Link>
-          </Menu.Item>
+                  <Menu.Item>
+                    <Link to="/login"><Button secondary name="login">Log-in</Button></Link>
+                  </Menu.Item>
+                </Menu.Menu>
+            : 
+              <Menu.Menu position='right'>
+                <Menu.Item>
+                {"👤 " + currentUser.username}
+                </Menu.Item>
+
+                < Menu.Item >
+                  <Button onClick={logout}>Logout</Button>
+                </Menu.Item>
+              </Menu.Menu>
+          }
 
         </Menu>
         <Switch>

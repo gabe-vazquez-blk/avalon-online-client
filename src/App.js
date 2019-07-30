@@ -54,11 +54,18 @@ class App extends React.Component {
     this.setState({ games })
   }
 
-  // FORM EVENT HANDLERS
   setUser = (user)=>{
     this.setState({
       currentUser: user
     }, () => (this.props.history.push("/lobby")))
+  }
+
+  logout = () => {
+    this.setState({
+      currentUser: null
+    },() => {
+      this.props.history.push("/login")
+    })
   }
 
 
@@ -66,7 +73,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Navbar setUser={this.setUser}/>
+        <Navbar 
+          setUser={this.setUser}
+          currentUser={this.state.currentUser}
+          logout={this.logout}
+        />
         <Switch>
 
           <Route path="/lobby" render={() =>{
