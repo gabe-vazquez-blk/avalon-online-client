@@ -12,9 +12,8 @@ class Lobby extends Component {
   render() {
 
     const {setUser, handleReceivedGame, handleReceivedMessage, setSelectedGame, games, currentUser} = this.props
-
     return (
-
+      
       <Route exact path="/lobby" render={(routerProps) => {
         return (
           <div>
@@ -26,7 +25,7 @@ class Lobby extends Component {
             <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
                 <Segment style={{ overflow: 'auto', maxHeight: 300 }}>
-                  <h3 style={{textAlign: 'left'}}>Games in session...</h3>
+                  <h3 style={{textAlign: 'left'}}>Active Games</h3>
                     <List animated verticalAlign='middle'>
                       {games.map(game => {
                         return(

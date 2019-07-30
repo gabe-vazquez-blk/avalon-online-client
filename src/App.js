@@ -21,7 +21,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-      fetch(`${API_ROOT}/games`) //show only open ones and hide finished ones
+      fetch(`${API_ROOT}/open_games`) //show only open ones and hide finished ones
       .then(resp => resp.json())
       .then(games => this.setState({games}))
   }
