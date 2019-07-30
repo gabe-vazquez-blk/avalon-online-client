@@ -2,9 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Board from '../components/Board'
 import ChatRoom from '../components/ChatRoom';
-import { Grid, Segment, Button, Message, Icon } from 'semantic-ui-react'
+import { Grid, Segment, Button, Message, Icon, MessageContent, MessageHeader } from 'semantic-ui-react'
 import { ActionCable } from 'react-actioncable-provider';
-import { API_ROOT,  } from '../constants';
+import { API_ROOT,HEADERS  } from '../constants';
+import Countdown from 'react-countdown-now';
 
 class Game extends Component {
   state = {
@@ -37,7 +38,7 @@ class Game extends Component {
   }
 
   atCapacity = () => {
-    return this.state.remainingRoles.length > 0
+    return this.state.remainingRoles.length === 0
   }
 
   componentDidMount() {
@@ -47,10 +48,30 @@ class Game extends Component {
       this.setState({
         roles: roles,
         userJoined: this.userJoined()
-      }, ()=> this.setState({remainingRoles: this.remainingRoles()}))
+      }, ()=> this.setState({
+        remainingRoles: this.remainingRoles()
+      }))
     })
   }
   
+  componentDidUpdate(prevProps, prevState, snapsho) {
+      if (prevState.remainingRoles !== this.state.remainingRoles){
+        this.setState({
+          gameFull: this.atCapacity()
+        })
+      if(this.state.remainingRoles.length === 0){
+        fetch(`${API_ROOT}/update_game_status/${this.props.selectedGame.id}`, {
+          method: "PATCH",
+          headers: HEADERS,
+          body: JSON.stringify({
+            status: "IN_PROGRESS"
+          })
+        })
+        .then(resp => resp.json())
+        .then(json => console.log("UPDATING", json))
+      }
+    }
+  } 
   handleClick = e => {
     const remainingRoles = [...this.state.remainingRoles]
     const currRole = remainingRoles.pop()
@@ -69,8 +90,7 @@ class Game extends Component {
     })
     .then(this.setState({
       remainingRoles: remainingRoles,
-      userJoined: true,
-      gameFull: this.atCapacity()
+      userJoined: true
     }))
   }
 
@@ -104,8 +124,44 @@ class Game extends Component {
     }
   }
 
+  countdownRenderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <span>Let the adventure begin!</span>
+    } else {
+      // Render a countdown
+      return <span>Adventure awaits in ... {seconds}</span>;
+    }
+  }
+
+  pendingMsg = () => {
+    return(
+    <Message icon warning size='mini' >
+      <Icon name='circle notched' loading />
+        <Message.Content>
+          <Message.Header>Waiting For {this.state.remainingRoles.length} More</Message.Header>
+              {this.getCurrPlayerNames().length?this.getCurrPlayerNames().map( name => {
+                return(
+                  <span key={name}> {name}    </span>
+                  )
+                }):null}
+        </Message.Content>
+        <Button size='mini' onClick={this.handleClick} disabled={this.state.userJoined || this.state.gameFull}>{this.state.gameFull ? "GAME FULL" : "JOIN GAME"}</Button>
+    </Message>)
+  }
+
+  gameLoadMsg = () => {
+    return(
+    <Message>
+      <MessageContent>
+        <MessageHeader>
+        <Countdown date={Date.now() + 5000} renderer={this.countdownRenderer}>
+        </Countdown>
+        </MessageHeader>
+      </MessageContent>
+    </Message>)
+  }
+
   render() {
-    // console.log("SELECTED GAME", this.props.selectedGame)
     const {approve, reject, success, fail} = this.state
     const {selectedGame, currentUser} = this.props
     return (
@@ -118,25 +174,15 @@ class Game extends Component {
               onReceived={this.props.handleReceivedGameRole}
             />
 
-
             <Grid>
               <Grid.Column width={10}>
+                
                 <Grid columns={3} padded verticalAlign='middle' textAlign='center'>
-                  <Grid.Column >
-                  <Message icon warning size='mini' >
-                      <Icon name='circle notched' loading />
-                      <Message.Content>
-                        <Message.Header>Waiting For {this.state.remainingRoles.length} More</Message.Header>
-                            {this.getCurrPlayerNames().length?this.getCurrPlayerNames().map( name => {
-                              return(
-                                <span key={name}> {name}    </span>
-                                )
-                              }):null}
-                      </Message.Content>
-                        <Button size='mini' onClick={this.handleClick} disabled={this.state.userJoined || this.state.gameFull}>{this.state.gameFull ? "GAME FULL" : "JOIN GAME"}</Button>
-                    </Message>
-                  </Grid.Column>
-                </Grid>
+                    <Grid.Column >
+                    {(!this.state.gameFull) ? this.pendingMsg() : this.gameLoadMsg()}
+                    </Grid.Column>
+                  </Grid>
+               
                 <Board roles={this.state.roles}
                   approve={approve}
                   reject={reject}
@@ -157,8 +203,9 @@ class Game extends Component {
           </Fragment>
         )
       }}/>
-    );
+    )
   }
 }
+
 
 export default Game;
