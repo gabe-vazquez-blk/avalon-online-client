@@ -14,8 +14,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100px;
-    width: 100px;
+    height: 10%;
+    width: 100%;
     border-radius: 50%;
     border-style: solid;
     border-color: white;
@@ -27,8 +27,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100px;
-    width: 100px;
+    height: 10%;
+    width: 100%;
     border-radius: 50%;
     border-style: solid;
     border-color: white;
@@ -41,8 +41,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100px;
-    width: 100px;
+    height: 10%;
+    width: 100%;
     border-radius: 50%;
     border-style: solid;
     border-color: white;
@@ -56,8 +56,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 75px;
-    width: 75px;
+    height: 10%;
+    width: 100%;
     border-radius: 50%;
     border-style: solid;
     border-color: white

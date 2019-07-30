@@ -23,45 +23,42 @@ class VoteTrack extends Component {
     const crestImg = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Welsh_Dragon_%28Y_Ddraig_Goch%29.svg/1200px-Welsh_Dragon_%28Y_Ddraig_Goch%29.svg.png"
           
     return (
-        <Grid padded verticalAlign='middle' columns={10} centered>
+        <Grid verticalAlign='middle' columns={10} centered>
           <Grid.Row>
             <Grid.Column>
-              <Label as='a' color='red' ribbon>Vote Track</Label>
-
-                {this.state.vote1 ? 
-                  <img name="vote1" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
-                   : <h4 name="vote1" className="voteTrack" onClick={this.handleClick}>1</h4>}
+            <Label color='red' horizontal pointing='right'>Vote Track</Label>
             </Grid.Column>
             <Grid.Column>
-              <br></br>
+              {this.state.vote1 ? 
+                <img name="vote1" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
+                  : <h1 name="vote1" className="voteTrack" onClick={this.handleClick}>1</h1>}
+            </Grid.Column>
+            <Grid.Column>
           
                 {this.state.vote2 ? 
                   <img name="vote2" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
-                   : <h4 name="vote2" className="voteTrack" onClick={this.handleClick}>2</h4>}
+                   : <h1 name="vote2" className="voteTrack" onClick={this.handleClick}>2</h1>}
             
             </Grid.Column>
             <Grid.Column>
-              <br></br>
           
                 {this.state.vote3 ? 
                   <img name="vote3" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
-                   : <h4 name="vote3" className="voteTrack" onClick={this.handleClick}>3</h4>}
+                   : <h1 name="vote3" className="voteTrack" onClick={this.handleClick}>3</h1>}
             
             </Grid.Column>
             <Grid.Column>
-              <br></br>
           
                 {this.state.vote4 ? 
                   <img name="vote4" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
-                   : <h4 name="vote4" className="voteTrack" onClick={this.handleClick}>4</h4>}
+                   : <h1 name="vote4" className="voteTrack" onClick={this.handleClick}>4</h1>}
             
             </Grid.Column>
             <Grid.Column>
-              <br></br>
           
                 {this.state.vote5 ? 
                   <img name="vote5" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
-                   : <h4 name="vote5" className="voteTrack" onClick={this.handleClick}>5</h4>}
+                   : <h1 name="vote5" className="voteTrack" onClick={this.handleClick}>5</h1>}
             
             </Grid.Column>
           </Grid.Row>

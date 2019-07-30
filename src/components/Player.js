@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Card, Image, Icon, Label } from 'semantic-ui-react'
 
 
@@ -9,7 +9,7 @@ class Player extends Component {
     const { approve, reject, success, fail } = this.props
     const {id, name, faction, img_url} = this.props.role
     return (
-      <div>
+      <Fragment>
         { approve && !reject ? <Label as='a' color='purple' ribbon>Approve</Label> : null}
         { reject && !approve ? <Label as='a' color='black' ribbon>Reject</Label> : null}
         { success && !fail ? <Label as='a' color='blue' ribbon>Success</Label> : null}
@@ -20,7 +20,8 @@ class Player extends Component {
             {name}
           </Card.Content>
         </Card>
-      </div>
+        <br></br>
+      </Fragment>
     );
   }
 }

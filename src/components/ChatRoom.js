@@ -1,13 +1,16 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, createRef } from 'react';
 import NewMessageForm from './NewMessageForm';
 import PlayerArea from './PlayerArea';
-import { Segment, Comment, Header } from 'semantic-ui-react';
+import { Segment, Comment, Header, Sticky, Rail, Ref } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
 import { ActionCable } from 'react-actioncable-provider';
 
 class ChatRoom extends Component {
+
+  state = { active: true }
+  contextRef = createRef()
 
     orderedMessages = messages => {
       const {currentUser} = this.props
@@ -32,25 +35,33 @@ class ChatRoom extends Component {
    
     render() {
         const {selectedGame, handleReceivedMessage, handleApproval, handleSuccess} = this.props
+        const {active} = this.state
         return (
-          <Segment secondary style={{ height: "94vh"}}>
-            <ActionCable
-              key={selectedGame.id} 
-              channel={{channel: 'MessagesChannel', game: selectedGame.id}}
-              onReceived={handleReceivedMessage}
-            />
-              <Comment.Group>
-                <Header as='h3' dividing>{selectedGame.name} Chatroom</Header>
-                  <Segment style={{ height: "30vh", overflow: 'auto' }}>
-                      {this.orderedMessages(selectedGame.messages)}
+
+          // <Ref innerRef={this.contextRef}>
+          //   <Rail>
+          //     <Sticky active={active} context={this.contextRef}>
+                <Segment secondary style={{ height: "100vh"}}>
+                  <ActionCable
+                    key={selectedGame.id} 
+                    channel={{channel: 'MessagesChannel', game: selectedGame.id}}
+                    onReceived={handleReceivedMessage}
+                  />
+                    <Comment.Group>
+                      <Header as='h3' dividing>{selectedGame.name} Chatroom</Header>
+                        <Segment style={{ height: "30vh", overflow: 'auto' }}>
+                            {this.orderedMessages(selectedGame.messages)}
+                        </Segment>
+                    </Comment.Group>
+                    <NewMessageForm game_id={selectedGame.id} currentUser={this.props.currentUser}/>
+                    <PlayerArea 
+                      handleApproval={handleApproval}
+                      handleSuccess={handleSuccess}
+                    />
                   </Segment>
-              </Comment.Group>
-              <NewMessageForm game_id={selectedGame.id} currentUser={this.props.currentUser}/>
-              <PlayerArea 
-                handleApproval={handleApproval}
-                handleSuccess={handleSuccess}
-              />
-            </Segment>
+          //      </Sticky>
+          //    </Rail>
+          //  </Ref>
         );
     }
 }

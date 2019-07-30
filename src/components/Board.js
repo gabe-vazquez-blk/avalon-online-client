@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Player from './Player'
 import QuestCoins from './QuestCoins'
 import VoteTrack from './VoteTrack'
-import {Grid} from 'semantic-ui-react'
+import {Grid, Card} from 'semantic-ui-react'
 import {API_ROOT} from '../constants'
 
 class Board extends Component {
@@ -33,18 +33,12 @@ class Board extends Component {
   render() {
     return (
       <div>
-        <br></br>
-        <br></br>
-        <Grid verticalAlign='middle' columns={5} centered>
+        <Grid columns={5} centered padded>
           <Grid.Row>
             {this.playerCards()}
           </Grid.Row>
         </Grid>
-        <br></br>
-        <br></br>
         <QuestCoins />
-        <br></br>
-        <br></br>
         <VoteTrack />
       </div>
     );

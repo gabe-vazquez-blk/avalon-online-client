@@ -16,7 +16,7 @@ class Game extends Component {
     reject: false,
     success: false,
     fail: false,
-    gameFull: false
+    gameFull: false,
   }
 
   extractRoleIds = () => {
@@ -162,35 +162,42 @@ class Game extends Component {
   }
 
   render() {
-    const {approve, reject, success, fail} = this.state
+    // console.log("SELECTED GAME", this.props.selectedGame)
+    const {approve, reject, success, fail, active} = this.state
     const {selectedGame, currentUser} = this.props
     return (
       <Route exact path={'/game/:id'} render={(routerProps) => {
         return (
-          <Fragment>
-            <ActionCable
-              key={selectedGame.id} 
-              channel={{channel: 'GameRolesChannel', game: selectedGame.id}}
-              onReceived={this.props.handleReceivedGameRole}
-            />
 
-            <Grid>
-              <Grid.Column width={10}>
-                
-                <Grid columns={3} padded verticalAlign='middle' textAlign='center'>
+          <Grid columns={3} centered>
+            <Grid.Row>
+              <Grid.Column floated="right" width={6}>
+
+                <ActionCable
+                  key={selectedGame.id} 
+                  channel={{channel: 'GameRolesChannel', game: selectedGame.id}}
+                  onReceived={this.props.handleReceivedGameRole}
+                />
+
+                {/*<Grid.Column width={10}>*/}
+                <Grid centered padded>
                     <Grid.Column >
-                    {(!this.state.gameFull) ? this.pendingMsg() : this.gameLoadMsg()}
+                      {(!this.state.gameFull) ? this.pendingMsg() : this.gameLoadMsg()} 
                     </Grid.Column>
                   </Grid>
-               
-                <Board roles={this.state.roles}
-                  approve={approve}
-                  reject={reject}
-                  success={success}
-                  fail={fail}
-                />
-              </Grid.Column>
-              <Grid.Column width={3}>
+                  {/* <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                  <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                  <Grid.Row centered> */}
+                      <Board roles={this.state.roles}
+                        approve={approve}
+                        reject={reject}
+                        success={success}
+                        fail={fail}
+                      />
+                  {/* </Grid.Row>*/}
+                </Grid.Column> 
+
+              <Grid.Column floated='right' width={3}>
                 <ChatRoom 
                   selectedGame={this.props.selectedGame} 
                   currentUser={this.props.currentUser} 
@@ -199,8 +206,8 @@ class Game extends Component {
                   handleSuccess={this.handleSuccess}
                   />
               </Grid.Column>
-             </Grid>
-          </Fragment>
+            </Grid.Row>
+          </Grid>
         )
       }}/>
     )
