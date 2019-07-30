@@ -14,7 +14,8 @@ class Game extends Component {
     approve: false,
     reject: false,
     success: false,
-    fail: false
+    fail: false,
+    gameFull: false
   }
 
   extractRoleIds = () => {
@@ -27,12 +28,16 @@ class Game extends Component {
     return unassignedRoles
   }
 
-  getCurrPlayers = () => {
-    return this.props.selectedGame.game_roles.map(gameRole => gameRole.user_id)
+  getCurrPlayerNames = () => {
+    return this.props.selectedGame.game_roles.map(gameRole => gameRole.username)
   }
 
   userJoined = () => {
-    return this.getCurrPlayers().includes(this.props.currentUser.id)
+    return this.getCurrPlayerNames().includes(this.props.currentUser.username)
+  }
+
+  atCapacity = () => {
+    return this.state.remainingRoles.length > 0
   }
 
   componentDidMount() {
@@ -48,7 +53,6 @@ class Game extends Component {
   
   handleClick = e => {
     const remainingRoles = [...this.state.remainingRoles]
-    console.log("REMIANING ROLES", remainingRoles)
     const currRole = remainingRoles.pop()
     fetch(`${API_ROOT}/game_roles`,{
       method: "POST",
@@ -65,7 +69,8 @@ class Game extends Component {
     })
     .then(this.setState({
       remainingRoles: remainingRoles,
-      userJoined: true
+      userJoined: true,
+      gameFull: this.atCapacity()
     }))
   }
 
@@ -105,7 +110,6 @@ class Game extends Component {
     const {selectedGame, currentUser} = this.props
     return (
       <Route exact path={'/game/:id'} render={(routerProps) => {
-        console.log("CURR PLAYERS", this.state.currentPlayers)
         return (
           <Fragment>
             <ActionCable
@@ -116,24 +120,24 @@ class Game extends Component {
 
 
             <Grid>
-              <Grid.Column width={13}>
+              <Grid.Column width={10}>
                 <Grid columns={3} padded verticalAlign='middle' textAlign='center'>
                   <Grid.Column >
                   <Message icon warning size='mini' >
                       <Icon name='circle notched' loading />
                       <Message.Content>
-                        <Message.Header>Players Waiting:</Message.Header>
-                            {this.getCurrPlayers().length?this.getCurrPlayers().map( playerId => {
+                        <Message.Header>Waiting For {this.state.remainingRoles.length} More</Message.Header>
+                            {this.getCurrPlayerNames().length?this.getCurrPlayerNames().map( name => {
                               return(
-                                <span key={playerId}>Player ID: {playerId}    </span>
+                                <span key={name}> {name}    </span>
                                 )
                               }):null}
                       </Message.Content>
-                        <Button size='mini' onClick={this.handleClick} disabled={this.state.userJoined}>JOIN & READY</Button>
+                        <Button size='mini' onClick={this.handleClick} disabled={this.state.userJoined || this.state.gameFull}>{this.state.gameFull ? "GAME FULL" : "JOIN GAME"}</Button>
                     </Message>
                   </Grid.Column>
                 </Grid>
-                <Board roles={this.state.remainingRoles}
+                <Board roles={this.state.roles}
                   approve={approve}
                   reject={reject}
                   success={success}

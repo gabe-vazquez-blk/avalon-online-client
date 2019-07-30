@@ -19,7 +19,7 @@ class ChatRoom extends Component {
             <Comment key={message.id}>
               <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
               <Comment.Content>
-                <Comment.Author as='a'>{currentUser.username}</Comment.Author>
+                <Comment.Author as='a'>{message.username}</Comment.Author>
                 <Comment.Metadata>
                   <span><Moment fromNow>{message.created_at}</Moment></span>
                 </Comment.Metadata>

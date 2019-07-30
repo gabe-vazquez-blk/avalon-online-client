@@ -35,7 +35,7 @@ class Board extends Component {
       <div>
         <br></br>
         <br></br>
-        <Grid verticalAlign='middle' columns={7} centered>
+        <Grid verticalAlign='middle' columns={5} centered>
           <Grid.Row>
             {this.playerCards()}
           </Grid.Row>
