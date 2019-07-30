@@ -10,6 +10,7 @@ import { ActionCable } from 'react-actioncable-provider';
 class ChatRoom extends Component {
 
     orderedMessages = messages => {
+      const {currentUser} = this.props
         const sortedMessages = messages.sort(
           (a, b) => new Date(a.created_at) - new Date(b.created_at)
         )
@@ -18,7 +19,7 @@ class ChatRoom extends Component {
             <Comment key={message.id}>
               <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
               <Comment.Content>
-                <Comment.Author as='a'>{message.user_id}</Comment.Author>
+                <Comment.Author as='a'>{currentUser.username}</Comment.Author>
                 <Comment.Metadata>
                   <span><Moment fromNow>{message.created_at}</Moment></span>
                 </Comment.Metadata>
@@ -32,7 +33,6 @@ class ChatRoom extends Component {
     render() {
         const {selectedGame, handleReceivedMessage, handleApproval, handleSuccess} = this.props
         return (
-
           <Segment secondary style={{ height: "94vh"}}>
             <ActionCable
               key={selectedGame.id} 
@@ -51,7 +51,6 @@ class ChatRoom extends Component {
                 handleSuccess={handleSuccess}
               />
             </Segment>
-
         );
     }
 }

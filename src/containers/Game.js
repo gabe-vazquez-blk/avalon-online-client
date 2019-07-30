@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Board from '../components/Board'
 import ChatRoom from '../components/ChatRoom';
-import { Grid, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Button, Message, Icon } from 'semantic-ui-react'
 import { ActionCable } from 'react-actioncable-provider';
 import { API_ROOT,  } from '../constants';
 
@@ -113,17 +113,26 @@ class Game extends Component {
               channel={{channel: 'GameRolesChannel', game: selectedGame.id}}
               onReceived={this.props.handleReceivedGameRole}
             />
-            <button onClick={this.handleClick} disabled={this.state.userJoined}>JOIN & READY</button>
-            <h3 className="welcome">Players Waiting:</h3>
-            <ul className="welcome">
-            {this.getCurrPlayers().length?this.getCurrPlayers().map( playerId => {
-              return(
-                <li key={playerId}>Player ID: {playerId}</li>
-              )
-            }):null}
-            </ul>
+
+
             <Grid>
               <Grid.Column width={13}>
+                <Grid columns={3} padded verticalAlign='middle' textAlign='center'>
+                  <Grid.Column >
+                  <Message icon warning size='mini' >
+                      <Icon name='circle notched' loading />
+                      <Message.Content>
+                        <Message.Header>Players Waiting:</Message.Header>
+                            {this.getCurrPlayers().length?this.getCurrPlayers().map( playerId => {
+                              return(
+                                <span key={playerId}>Player ID: {playerId}    </span>
+                                )
+                              }):null}
+                      </Message.Content>
+                        <Button size='mini' onClick={this.handleClick} disabled={this.state.userJoined}>JOIN & READY</Button>
+                    </Message>
+                  </Grid.Column>
+                </Grid>
                 <Board roles={this.state.remainingRoles}
                   approve={approve}
                   reject={reject}
@@ -138,9 +147,9 @@ class Game extends Component {
                   handleReceivedMessage={this.props.handleReceivedMessage}
                   handleApproval={this.handleApproval}
                   handleSuccess={this.handleSuccess}
-                />
+                  />
               </Grid.Column>
-            </Grid>
+             </Grid>
           </Fragment>
         )
       }}/>
