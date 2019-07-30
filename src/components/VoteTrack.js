@@ -26,7 +26,7 @@ class VoteTrack extends Component {
         <Grid padded verticalAlign='middle' columns={10} centered>
           <Grid.Row>
             <Grid.Column>
-              <Label as='a' color='red' ribbon>Vote</Label>
+              <Label as='a' color='red' ribbon>Vote Track</Label>
 
                 {this.state.vote1 ? 
                   <img name="vote1" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
