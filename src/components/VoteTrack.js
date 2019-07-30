@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Divider, Header} from 'semantic-ui-react'
+import { Grid, Label} from 'semantic-ui-react'
 
 class VoteTrack extends Component {
 
@@ -23,52 +23,50 @@ class VoteTrack extends Component {
     const crestImg = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Welsh_Dragon_%28Y_Ddraig_Goch%29.svg/1200px-Welsh_Dragon_%28Y_Ddraig_Goch%29.svg.png"
           
     return (
-      <div>
-        <Divider horizontal>
-          <Header as='h4'>
-            Vote Track
-        </Header>
-        </Divider>
-        <Grid verticalAlign='middle' columns={10} centered>
+        <Grid padded verticalAlign='middle' columns={10} centered>
           <Grid.Row>
             <Grid.Column>
-              <div>
+              <Label as='a' color='red' ribbon>Vote</Label>
+
                 {this.state.vote1 ? 
                   <img name="vote1" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
                    : <h4 name="vote1" className="voteTrack" onClick={this.handleClick}>1</h4>}
-              </div>
             </Grid.Column>
             <Grid.Column>
-              <div>
+              <br></br>
+          
                 {this.state.vote2 ? 
                   <img name="vote2" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
                    : <h4 name="vote2" className="voteTrack" onClick={this.handleClick}>2</h4>}
-              </div>
+            
             </Grid.Column>
             <Grid.Column>
-              <div>
+              <br></br>
+          
                 {this.state.vote3 ? 
                   <img name="vote3" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
                    : <h4 name="vote3" className="voteTrack" onClick={this.handleClick}>3</h4>}
-              </div>
+            
             </Grid.Column>
             <Grid.Column>
-              <div>
+              <br></br>
+          
                 {this.state.vote4 ? 
                   <img name="vote4" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
                    : <h4 name="vote4" className="voteTrack" onClick={this.handleClick}>4</h4>}
-              </div>
+            
             </Grid.Column>
             <Grid.Column>
-              <div>
+              <br></br>
+          
                 {this.state.vote5 ? 
                   <img name="vote5" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
                    : <h4 name="vote5" className="voteTrack" onClick={this.handleClick}>5</h4>}
-              </div>
+            
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
+    
     )
   }
 

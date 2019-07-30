@@ -13,7 +13,7 @@ function Navbar(props){
       <div>
         <Menu >
           <Menu.Item header >
-            <Link to="/">Avalon Online</Link>
+            <Link to="/lobby">Avalon Online</Link>
           </Menu.Item>
 
           <Menu.Item>

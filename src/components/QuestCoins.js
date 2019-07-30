@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react'
+import { Grid, Label } from 'semantic-ui-react'
 
 class QuestCoins extends Component{
 
@@ -34,27 +34,30 @@ class QuestCoins extends Component{
     const { quest1, quest2, quest3, quest4, quest5 } = this.state
 
     return (
-      <div>
-        <Grid verticalAlign='middle' columns={10} centered>
+      <Grid padded verticalAlign='middle' columns={10} centered>
           <Grid.Row>
             <Grid.Column>
+            <Label as='a' color='red' ribbon>Quest</Label>
               <h1 name="quest1" className={quest1} onClick={this.handleClick}>1</h1>
             </Grid.Column>
             <Grid.Column>
+              <br></br>
               <h1 name="quest2" className={quest2} onClick={this.handleClick}>2</h1>            
             </Grid.Column>
             <Grid.Column>
+            <br></br>
               <h1 name="quest3" className={quest3} onClick={this.handleClick}>3</h1> 
             </Grid.Column>
             <Grid.Column>
+            <br></br>
               <h1 name="quest4" className={quest4} onClick={this.handleClick}>4</h1>
             </Grid.Column>
             <Grid.Column>
+            <br></br>
               <h1 name="quest5" className={quest5} onClick={this.handleClick}>5</h1> 
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
     )
   }
 }

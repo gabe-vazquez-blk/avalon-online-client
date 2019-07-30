@@ -3,6 +3,8 @@ import Navbar from './containers/Navbar'
 import Lobby from './containers/Lobby';
 import Game from './containers/Game';
 import { API_ROOT } from './constants';
+import { Link, Route, Switch, Redirect } from 'react-router-dom'
+
 //for testing
 //import GameLobby from './containers/GameLobby'
 
@@ -24,7 +26,7 @@ class App extends React.Component {
   }
 
   setSelectedGame = game => {
-      this.setState({selectedGame: game}, () => (this.props.history.push("/game")))
+      this.setState({selectedGame: game}, () => (this.props.history.push(`/game/${game.id}`)))
   }
 
   handleReceivedGame = resp => {
@@ -57,10 +59,40 @@ class App extends React.Component {
     return (
       <div>
         <Navbar setUser={this.setUser}/>
+        <Switch>
 
-        <Lobby setUser={this.setUser} handleReceivedGame={this.handleReceivedGame} handleReceivedMessage={this.handleReceivedMessage} setSelectedGame={this.setSelectedGame} games={this.state.games} selectedGame={this.state.selectedGame} currentUser={this.state.currentUser} />
+          <Route path="/lobby" render={() =>{
+            return(
+              <Lobby setUser={this.setUser} 
+                handleReceivedGame={this.handleReceivedGame} 
+                handleReceivedMessage={this.handleReceivedMessage} 
+                setSelectedGame={this.setSelectedGame} 
+                games={this.state.games} 
+                selectedGame={this.state.selectedGame} 
+                currentUser={this.state.currentUser} 
+              />
+            )}
+          }/>
 
-        {this.state.selectedGame ? <Game selectedGame={this.state.selectedGame} currentUser={this.state.currentUser} handleReceivedMessage={this.handleReceivedMessage}/> : null}/>
+          <Route path="/game/:id" render={(routerProps) =>{
+            const selectedGame = this.state
+
+              if(selectedGame){
+                return(
+
+                  <Game
+                    selectedGame={this.state.selectedGame}
+                    currentUser={this.state.currentUser} 
+                  />
+                )
+              } else {
+                // if a post is not found, then render a Redirect
+                return <Redirect to="/404" />
+              }
+            }
+          }/> 
+   
+        </Switch>
       </div>
     );
   }
