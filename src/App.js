@@ -26,6 +26,19 @@ class App extends React.Component {
       .then(games => this.setState({games}))
   }
 
+  removeGame = game => {
+    const {allGames} = this.state.games
+    const updatedGames = allGames.map(allGame => allGame.id !== game.id )
+    this.setState({
+      games: updatedGames
+    })
+    if (this.state.selectedGame.id === game.id) {
+      this.setState({
+        selectedGame: null
+      })
+    }
+  }
+
   setSelectedGame = game => {
       this.setState({selectedGame: game}, () => (this.props.history.push(`/game/${game.id}`)))
   }
@@ -102,6 +115,7 @@ class App extends React.Component {
                     selectedGame={this.state.selectedGame}
                     currentUser={this.state.currentUser}
                     handleReceivedGameRole={this.handleReceivedGameRole} 
+                    removeGame={this.removeGame}
                   />
                 )
               } else {

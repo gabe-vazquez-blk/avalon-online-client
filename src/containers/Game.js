@@ -68,7 +68,7 @@ class Game extends Component {
           })
         })
         .then(resp => resp.json())
-        .then(json => console.log("UPDATING", json))
+        .then(game => () => this.props.removeGame(game))
       }
     }
   } 
