@@ -10,7 +10,11 @@ class Game extends Component {
   state = {
     roles: [],
     remainingRoles: [],
-    userJoined: false
+    userJoined: false,
+    approve: false,
+    reject: false,
+    success: false,
+    fail: false
   }
 
   extractRoleIds = () => {
@@ -41,7 +45,7 @@ class Game extends Component {
       }, ()=> this.setState({remainingRoles: this.remainingRoles()}))
     })
   }
-
+  
   handleClick = e => {
     const remainingRoles = [...this.state.remainingRoles]
     console.log("REMIANING ROLES", remainingRoles)
@@ -65,7 +69,39 @@ class Game extends Component {
     }))
   }
 
+  handleApproval = (e)=>{
+    const name = e.target.name
+    if (name === "approve") {
+      this.setState({
+        [name]: !this.state[name],
+        reject: false
+      })  
+    } else {
+        this.setState({
+          [name]: !this.state[name],
+          approve: false
+        })  
+    }
+  }
+
+  handleSuccess = (e)=>{
+    const name = e.target.name
+    if (name === "success") {
+      this.setState({
+        [name]: !this.state[name],
+        fail: false
+      })
+    } else {
+      this.setState({
+        [name]: !this.state[name],
+        success: false
+      })
+    }
+  }
+
   render() {
+    // console.log("SELECTED GAME", this.props.selectedGame)
+    const {approve, reject, success, fail} = this.state
     const {selectedGame, currentUser} = this.props
     return (
       <Route exact path={'/game/:id'} render={(routerProps) => {
@@ -73,9 +109,9 @@ class Game extends Component {
         return (
           <Fragment>
             <ActionCable
-                    key={selectedGame.id} 
-                    channel={{channel: 'GameRolesChannel', game: selectedGame.id}}
-                    onReceived={this.props.handleReceivedGameRole}
+              key={selectedGame.id} 
+              channel={{channel: 'GameRolesChannel', game: selectedGame.id}}
+              onReceived={this.props.handleReceivedGameRole}
             />
             <button onClick={this.handleClick} disabled={this.state.userJoined}>JOIN & READY</button>
             <h3 className="welcome">Players Waiting:</h3>
@@ -88,10 +124,21 @@ class Game extends Component {
             </ul>
             <Grid>
               <Grid.Column width={13}>
-                <Board roles={this.state.remainingRoles}/>
+                <Board roles={this.state.remainingRoles}
+                  approve={approve}
+                  reject={reject}
+                  success={success}
+                  fail={fail}
+                />
               </Grid.Column>
               <Grid.Column width={3}>
-                  <ChatRoom selectedGame={this.props.selectedGame} currentUser={this.props.currentUser} handleReceivedMessage={this.props.handleReceivedMessage}/>
+                <ChatRoom 
+                  selectedGame={this.props.selectedGame} 
+                  currentUser={this.props.currentUser} 
+                  handleReceivedMessage={this.props.handleReceivedMessage}
+                  handleApproval={this.handleApproval}
+                  handleSuccess={this.handleSuccess}
+                />
               </Grid.Column>
             </Grid>
           </Fragment>

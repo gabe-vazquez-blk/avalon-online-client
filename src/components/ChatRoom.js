@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import NewMessageForm from './NewMessageForm';
+import PlayerArea from './PlayerArea';
 import { Segment, Comment, Header } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -29,24 +30,26 @@ class ChatRoom extends Component {
       }
    
     render() {
-        const {selectedGame, handleReceivedMessage} = this.props
+        const {selectedGame, handleReceivedMessage, handleApproval, handleSuccess} = this.props
         return (
 
-          <Segment secondary style={{ height: "92vh"}}>
+          <Segment secondary style={{ height: "94vh"}}>
             <ActionCable
-                    key={selectedGame.id} 
-                    channel={{channel: 'MessagesChannel', game: selectedGame.id}}
-                    onReceived={handleReceivedMessage}
+              key={selectedGame.id} 
+              channel={{channel: 'MessagesChannel', game: selectedGame.id}}
+              onReceived={handleReceivedMessage}
             />
               <Comment.Group>
-                <Header as='h3' dividing>{selectedGame.name}</Header>
-                  <Segment style={{ height: "70vh", overflow: 'auto' }}>
+                <Header as='h3' dividing>{selectedGame.name} Chatroom</Header>
+                  <Segment style={{ height: "30vh", overflow: 'auto' }}>
                       {this.orderedMessages(selectedGame.messages)}
                   </Segment>
               </Comment.Group>
-
               <NewMessageForm game_id={selectedGame.id} currentUser={this.props.currentUser}/>
-
+              <PlayerArea 
+                handleApproval={handleApproval}
+                handleSuccess={handleSuccess}
+              />
             </Segment>
 
         );

@@ -7,11 +7,26 @@ import {API_ROOT} from '../constants'
 
 class Board extends Component {
 
-  playerCards = () => {
+  state = {
+    roles: [],
+    playerNum: parseInt(this.props.playerNum)
+  }
+
+  
+
+  playerCards = (playerNum) => {
     return this.props.roles.map(role => {
-      return (<Grid.Column key={role.id}>
-        <Player role={role}/>
-      </Grid.Column>)
+      return (
+        <Grid.Column key={role.id}>
+          <Player 
+            approve={this.props.approve}
+            reject={this.props.reject}
+            success={this.props.success}
+            fail={this.props.fail}
+            role={role}
+          />
+        </Grid.Column>
+      )
     })
   }
 
