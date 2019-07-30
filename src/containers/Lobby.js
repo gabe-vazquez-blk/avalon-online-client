@@ -22,7 +22,6 @@ class Lobby extends Component {
                   channel={{channel: 'GamesChannel'}}
                   onReceived={handleReceivedGame}
               />
-        ) : null}
             <br></br><br></br><br></br><br></br><br></br>
             <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
@@ -40,7 +39,7 @@ class Lobby extends Component {
                   </Segment>
               </Grid.Column>
             </Grid>
-              <NewGameForm setNumPlayer={this.props.setNumPlayer}/> 
+              <NewGameForm /> 
           </div>
         )
       }}/>

@@ -36,12 +36,22 @@ class App extends React.Component {
   }
 
   handleReceivedMessage = resp => {
+  
      const { message } = resp
     const games = [...this.state.games]
     const game = games.find(game => game.id === message.game_id)
     game.messages = [...game.messages, message]
     console.log("SETT MSG", message, game.messages, games)
     this.setState({ games }) 
+  }
+
+  handleReceivedGameRole = resp => {
+    const {game_role} = resp
+    const games = [...this.state.games]
+    const game = games.find(game => game.id === game_role.game_id)
+    game.game_roles = [...game.game_roles, game_role]
+    console.log("SETT GAME ROLE", game_role, games)
+    this.setState({ games })
   }
 
   // FORM EVENT HANDLERS
@@ -54,7 +64,6 @@ class App extends React.Component {
 
   // RENDER <Lobby setUser={this.setUser} />
   render() {
-    
     return (
       <div>
         <Navbar setUser={this.setUser}/>
@@ -74,15 +83,14 @@ class App extends React.Component {
           }/>
 
           <Route path="/game/:id" render={(routerProps) =>{
-            const selectedGame = this.state.selectedGame
 
-              if(this.state.selectedGame && this.state.currentUser){
+              if(this.state.selectedGame){
                 return(
 
                   <Game
                     selectedGame={this.state.selectedGame}
                     currentUser={this.state.currentUser}
-                    numPlayers={selectedGame.num_of_players} 
+                    handleReceivedGameRole={this.handleReceivedGameRole} 
                   />
                 )
               } else {

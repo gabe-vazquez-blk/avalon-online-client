@@ -8,26 +8,44 @@ import { API_ROOT,  } from '../constants';
 
 class Game extends Component {
   state = {
-    currentPlayers: [],
     roles: [],
-    joined: false
+    remainingRoles: [],
+    userJoined: false
+  }
+
+  extractRoleIds = () => {
+    return this.props.selectedGame.game_roles.map(role => role.role_id)
+  }
+  
+  remainingRoles = () => {
+    const currRoleIds = this.extractRoleIds()
+    const unassignedRoles = this.state.roles.filter(ele => !currRoleIds.includes(ele.id))
+    return unassignedRoles
+  }
+
+  getCurrPlayers = () => {
+    return this.props.selectedGame.game_roles.map(gameRole => gameRole.user_id)
+  }
+
+  userJoined = () => {
+    return this.getCurrPlayers().includes(this.props.currentUser.id)
   }
 
   componentDidMount() {
-    fetch(`${API_ROOT}/get_roles/${this.props.numPlayers}`)
+    fetch(`${API_ROOT}/get_roles/${this.props.selectedGame.num_of_players}`)
     .then(resp => resp.json())
-    .then(roles => this.setState({roles}))
-
-    fetch(`${API_ROOT}/game_roles/get_players/${this.props.selectedGame.id}`)
-    .then(resp => resp.json())
-    .then(players => this.setState({
-      currentPlayers: [...this.state.currentPlayers, players]
-    }))
+    .then(roles => {
+      this.setState({
+        roles: roles,
+        userJoined: this.userJoined()
+      }, ()=> this.setState({remainingRoles: this.remainingRoles()}))
+    })
   }
 
   handleClick = e => {
-    const roles = [...this.state.roles]
-    const currRole = roles.pop()
+    const remainingRoles = [...this.state.remainingRoles]
+    console.log("REMIANING ROLES", remainingRoles)
+    const currRole = remainingRoles.pop()
     fetch(`${API_ROOT}/game_roles`,{
       method: "POST",
       headers: {
@@ -38,16 +56,13 @@ class Game extends Component {
       body: JSON.stringify({
         game_id: this.props.selectedGame.id,
         role_id: currRole.id,
-        result: "WIN"
+        result: "PENDING"
       })
     })
-    .then(this.setState({roles}))
-  }
-  handleReceivedPlayer = resp => {
-    this.setState({
-      currentPlayers: [...this.state.currentPlayers, resp.game_role],
-      joined: true
-    })
+    .then(this.setState({
+      remainingRoles: remainingRoles,
+      userJoined: true
+    }))
   }
 
   render() {
@@ -60,20 +75,20 @@ class Game extends Component {
             <ActionCable
                     key={selectedGame.id} 
                     channel={{channel: 'GameRolesChannel', game: selectedGame.id}}
-                    onReceived={this.handleReceivedPlayer}
+                    onReceived={this.props.handleReceivedGameRole}
             />
-            <button onClick={this.handleClick} disabled={this.state.joined}>JOIN & READY</button>
+            <button onClick={this.handleClick} disabled={this.state.userJoined}>JOIN & READY</button>
             <h3 className="welcome">Players Waiting:</h3>
             <ul className="welcome">
-            {this.state.currentPlayers.length?this.state.currentPlayers.map( playerRole => {
+            {this.getCurrPlayers().length?this.getCurrPlayers().map( playerId => {
               return(
-                <li key={playerRole.id}>{playerRole.id}</li>
+                <li key={playerId}>Player ID: {playerId}</li>
               )
             }):null}
             </ul>
             <Grid>
               <Grid.Column width={13}>
-                <Board roles={this.state.roles}/>
+                <Board roles={this.state.remainingRoles}/>
               </Grid.Column>
               <Grid.Column width={3}>
                   <ChatRoom selectedGame={this.props.selectedGame} currentUser={this.props.currentUser} handleReceivedMessage={this.props.handleReceivedMessage}/>
