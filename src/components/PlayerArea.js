@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { Grid, Label, Segment, Divider, Header, Button} from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Grid, Segment, Divider, Header, Button} from 'semantic-ui-react'
 
 class PlayerArea extends Component {
   render() {

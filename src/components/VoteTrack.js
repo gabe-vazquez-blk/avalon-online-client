@@ -30,34 +30,34 @@ class VoteTrack extends Component {
             </Grid.Column>
             <Grid.Column>
               {this.state.vote1 ? 
-                <img name="vote1" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
+                <img name="vote1" className="voteTrack" src={crestImg} onClick={this.handleClick} alt="vote1"></img>
                   : <h1 name="vote1" className="voteTrack" onClick={this.handleClick}>1</h1>}
             </Grid.Column>
             <Grid.Column>
           
                 {this.state.vote2 ? 
-                  <img name="vote2" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
+                  <img name="vote2" className="voteTrack" src={crestImg} onClick={this.handleClick} alt="vote2"></img>
                    : <h1 name="vote2" className="voteTrack" onClick={this.handleClick}>2</h1>}
             
             </Grid.Column>
             <Grid.Column>
           
                 {this.state.vote3 ? 
-                  <img name="vote3" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
+                  <img name="vote3" className="voteTrack" src={crestImg} onClick={this.handleClick} alt="vote3"></img>
                    : <h1 name="vote3" className="voteTrack" onClick={this.handleClick}>3</h1>}
             
             </Grid.Column>
             <Grid.Column>
           
                 {this.state.vote4 ? 
-                  <img name="vote4" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
+                  <img name="vote4" className="voteTrack" src={crestImg} onClick={this.handleClick} alt="vote4"></img>
                    : <h1 name="vote4" className="voteTrack" onClick={this.handleClick}>4</h1>}
             
             </Grid.Column>
             <Grid.Column>
           
                 {this.state.vote5 ? 
-                  <img name="vote5" className="voteTrack" src={crestImg} onClick={this.handleClick}></img>
+                  <img name="vote5" className="voteTrack" src={crestImg} onClick={this.handleClick} alt="vote5"></img>
                    : <h1 name="vote5" className="voteTrack" onClick={this.handleClick}>5</h1>}
             
             </Grid.Column>

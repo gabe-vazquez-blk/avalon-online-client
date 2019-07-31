@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { API_ROOT } from '../constants';
-import { Button, Comment, Form, Header, Segment } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 
 class NewMessageForm extends Component {
 

@@ -1,7 +1,7 @@
-import React, { Component, Fragment, createRef } from 'react';
+import React, { Component, createRef } from 'react';
 import NewMessageForm from './NewMessageForm';
 import PlayerArea from './PlayerArea';
-import { Segment, Comment, Header, Sticky, Rail, Ref } from 'semantic-ui-react';
+import { Segment, Comment, Header } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -13,7 +13,6 @@ class ChatRoom extends Component {
   contextRef = createRef()
 
     orderedMessages = messages => {
-      const {currentUser} = this.props
         const sortedMessages = messages.sort(
           (a, b) => new Date(a.created_at) - new Date(b.created_at)
         )
@@ -35,7 +34,7 @@ class ChatRoom extends Component {
    
     render() {
         const {selectedGame, handleReceivedMessage, handleApproval, handleSuccess} = this.props
-        const {active} = this.state
+        //const {active} = this.state
         return (
 
           // <Ref innerRef={this.contextRef}>

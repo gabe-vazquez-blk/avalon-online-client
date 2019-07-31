@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-import { API_ROOT } from '../constants';
-import ChatRoom from '../components/ChatRoom';
-import Cable from '../components/Cable';
+//import { API_ROOT } from '../constants';
+//import ChatRoom from '../components/ChatRoom';
+//import Cable from '../components/Cable';
 import NewGameForm from '../components/NewGameForm';
 import { ActionCable } from 'react-actioncable-provider';
 import { List, Grid, Segment } from 'semantic-ui-react';
@@ -11,7 +11,7 @@ class Lobby extends Component {
 
   render() {
 
-    const {setUser, handleReceivedGame, handleReceivedMessage, setSelectedGame, games, currentUser} = this.props
+    const {handleReceivedGame, setSelectedGame, games} = this.props
     return (
       
       <Route exact path="/lobby" render={(routerProps) => {

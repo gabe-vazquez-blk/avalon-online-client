@@ -3,7 +3,7 @@ import Navbar from './containers/Navbar'
 import Lobby from './containers/Lobby';
 import Game from './containers/Game';
 import { API_ROOT } from './constants';
-import { Link, Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 //for testing
 //import GameLobby from './containers/GameLobby'
@@ -132,9 +132,3 @@ class App extends React.Component {
 }
 
 export default App
-
-const findSelectedGame = (games, selectedGame) => {
-  return games.find(
-    game => game.id === selectedGame
-  )
-}

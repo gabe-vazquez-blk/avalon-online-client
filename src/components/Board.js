@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Player from './Player'
 import QuestCoins from './QuestCoins'
 import VoteTrack from './VoteTrack'
-import {Grid, Card} from 'semantic-ui-react'
-import {API_ROOT} from '../constants'
+import {Grid} from 'semantic-ui-react'
+//import {API_ROOT} from '../constants'
 
 class Board extends Component {
 

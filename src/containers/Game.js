@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import Board from '../components/Board'
 import ChatRoom from '../components/ChatRoom';
-import { Grid, Segment, Button, Message, Icon, MessageContent, MessageHeader } from 'semantic-ui-react'
+import { Grid, Button, Message, Icon, MessageContent, MessageHeader } from 'semantic-ui-react'
 import { ActionCable } from 'react-actioncable-provider';
 import { API_ROOT,HEADERS  } from '../constants';
 import Countdown from 'react-countdown-now';
@@ -124,7 +124,7 @@ class Game extends Component {
     }
   }
 
-  countdownRenderer = ({ hours, minutes, seconds, completed }) => {
+  countdownRenderer = ({ seconds, completed }) => {
     if (completed) {
       return <span>Let the adventure begin!</span>
     } else {
@@ -163,8 +163,8 @@ class Game extends Component {
 
   render() {
     // console.log("SELECTED GAME", this.props.selectedGame)
-    const {approve, reject, success, fail, active} = this.state
-    const {selectedGame, currentUser} = this.props
+    const {approve, reject, success, fail} = this.state
+    const {selectedGame} = this.props
     return (
       <Route exact path={'/game/:id'} render={(routerProps) => {
         return (

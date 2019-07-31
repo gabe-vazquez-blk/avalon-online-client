@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Segment, Message } from 'semantic-ui-react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {  Route } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 
 class LoginForm extends Component {

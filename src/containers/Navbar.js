@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SignUpForm from '../components/SignUpForm'
 import LoginForm from '../components/LoginForm'
 import Welcome from '../components/Welcome'
@@ -8,7 +8,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 
 function Navbar(props){
 
-    const { routerProps, setUser, currentUser, logout } = props
+    const { setUser, currentUser, logout } = props
     return (
       <div>
         <Menu >
