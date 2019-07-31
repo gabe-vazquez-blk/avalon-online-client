@@ -100,14 +100,12 @@ class Game extends Component {
         result: "PENDING"
       })
     })
-    .then( resp => resp.json()
-    .then(currUserRole => {
+    .then(
         this.setState({
           remainingRoles: remainingRoles,
           userJoined: true,
-          currUserRoleId: currUserRole.role_id
-        })
-      }))
+          currUserRoleId: currRole.role_id
+        }))
   }
 
   handleApproval = (e)=>{
@@ -237,6 +235,7 @@ class Game extends Component {
 
               <Grid.Column floated='right' width={3}>
                 <ChatRoom 
+                  currentUser={this.props.currentUser}
                   selectedGame={this.props.selectedGame} 
                   handleReceivedMessage={this.props.handleReceivedMessage}
                   />

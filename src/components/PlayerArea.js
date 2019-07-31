@@ -6,11 +6,11 @@ class PlayerArea extends Component {
 
   getFactionName = () => {
     if (this.props.currUserRole.faction === "good"){
-      return "Loyal Servant of Author \n Good"
+      return "Loyal Servant of Author (Good)"
     }
     else
     {
-      return "Minionr of Mordred \n Bad"
+      return "Minion of Mordred (Bad)"
     }
   }
 
@@ -30,7 +30,7 @@ class PlayerArea extends Component {
             <Grid centered padded>
             <Grid.Row>
               <Header as='h4' floated='left'>
-                Your Team: 
+                Your Team
               </Header>
               </Grid.Row>
               <Grid.Row>
