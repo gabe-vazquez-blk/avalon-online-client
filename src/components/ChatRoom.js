@@ -1,6 +1,5 @@
 import React, { Component, createRef } from 'react';
 import NewMessageForm from './NewMessageForm';
-import PlayerArea from './PlayerArea';
 import { Segment, Comment, Header } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -34,7 +33,6 @@ class ChatRoom extends Component {
    
     render() {
         const {selectedGame, handleReceivedMessage, handleApproval, handleSuccess, currUserRole} = this.props
-        console.log("CURR USER", this.props)
         //const {active} = this.state
         return (
 
@@ -49,20 +47,11 @@ class ChatRoom extends Component {
                   />
                     <Comment.Group>
                       <Header as='h3' dividing>{selectedGame.name} Chatroom</Header>
-                        <Segment style={{ height: "30vh", overflow: 'auto' }}>
+                        <Segment style={{ height: "50vh", overflow: 'auto' }}>
                             {this.orderedMessages(selectedGame.messages)}
                         </Segment>
                     </Comment.Group>
                     <NewMessageForm game_id={selectedGame.id} currentUser={this.props.currentUser}/>
-                    <PlayerArea 
-                      handleApproval={handleApproval}
-                      handleSuccess={handleSuccess}
-                      currUserRole={currUserRole}
-                      approve={this.props.approve}
-                      reject={this.props.reject}
-                      success={this.props.success}
-                      fail={this.props.fail}
-                    />
                   </Segment>
           //      </Sticky>
           //    </Rail>

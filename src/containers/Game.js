@@ -6,6 +6,8 @@ import { Grid, Button, Message, Icon, MessageContent, MessageHeader } from 'sema
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import { API_ROOT,HEADERS  } from '../constants';
 import Countdown from 'react-countdown-now';
+import { Segment} from 'semantic-ui-react';
+import PlayerArea from '../components/PlayerArea';
 
 class Game extends Component {
   state = {
@@ -193,7 +195,20 @@ class Game extends Component {
 
           <Grid columns={3} centered>
             <Grid.Row>
-              <Grid.Column floated="right" width={6}>
+            <Grid.Column floated='left' width={3}>
+            <Segment secondary style={{ height: "100vh"}}>   
+              <PlayerArea 
+                handleApproval={this.handleApproval}
+                handleSuccess={this.handleSuccess}
+                currUserRole={this.getUserRole()} 
+                approve={approve}
+                reject={reject}
+                success={success}
+                fail={fail}
+              />
+              </Segment> 
+            </Grid.Column>
+            <Grid.Column floated="right" width={6}>
 
                 <ActionCableConsumer
                   key={selectedGame.id} 
@@ -201,6 +216,7 @@ class Game extends Component {
                   onReceived={this.props.handleReceivedGameRole}
                 />
 
+                
                 {/*<Grid.Column width={10}>*/}
                 <Grid centered padded>
                     <Grid.Column >
@@ -222,16 +238,11 @@ class Game extends Component {
               <Grid.Column floated='right' width={3}>
                 <ChatRoom 
                   selectedGame={this.props.selectedGame} 
-                  currUserRole={this.getUserRole()} 
                   handleReceivedMessage={this.props.handleReceivedMessage}
-                  handleApproval={this.handleApproval}
-                  handleSuccess={this.handleSuccess}
-                  approve={approve}
-                  reject={reject}
-                  success={success}
-                  fail={fail}
                   />
               </Grid.Column>
+
+             
             </Grid.Row>
           </Grid>
         )
