@@ -5,7 +5,7 @@ import { Segment, Comment, Header } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 
 class ChatRoom extends Component {
 
@@ -41,7 +41,7 @@ class ChatRoom extends Component {
           //   <Rail>
           //     <Sticky active={active} context={this.contextRef}>
                 <Segment secondary style={{ height: "100vh"}}>
-                  <ActionCable
+                  <ActionCableConsumer
                     key={selectedGame.id} 
                     channel={{channel: 'MessagesChannel', game: selectedGame.id}}
                     onReceived={handleReceivedMessage}

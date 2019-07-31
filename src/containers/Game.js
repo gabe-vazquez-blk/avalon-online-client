@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Board from '../components/Board'
 import ChatRoom from '../components/ChatRoom';
 import { Grid, Button, Message, Icon, MessageContent, MessageHeader } from 'semantic-ui-react'
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 import { API_ROOT,HEADERS  } from '../constants';
 import Countdown from 'react-countdown-now';
 
@@ -173,7 +173,7 @@ class Game extends Component {
             <Grid.Row>
               <Grid.Column floated="right" width={6}>
 
-                <ActionCable
+                <ActionCableConsumer
                   key={selectedGame.id} 
                   channel={{channel: 'GameRolesChannel', game: selectedGame.id}}
                   onReceived={this.props.handleReceivedGameRole}

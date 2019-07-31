@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 
 const Cable = ({ games, handleReceivedMessage }) => {
   return (
     <Fragment>
       {games.map(game => {
         return (
-          <ActionCable
+          <ActionCableConsumer
             key={game.id}  
             channel={{ channel: 'MessagesChannel', game: game.id }}
             onReceived={handleReceivedMessage}

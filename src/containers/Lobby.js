@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 //import ChatRoom from '../components/ChatRoom';
 //import Cable from '../components/Cable';
 import NewGameForm from '../components/NewGameForm';
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 import { List, Grid, Segment } from 'semantic-ui-react';
 
 class Lobby extends Component {
@@ -17,7 +17,7 @@ class Lobby extends Component {
       <Route exact path="/lobby" render={(routerProps) => {
         return (
           <div>
-              <ActionCable
+              <ActionCableConsumer
                   channel={{channel: 'GamesChannel'}}
                   onReceived={handleReceivedGame}
               />
