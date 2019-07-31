@@ -17,6 +17,7 @@ class Game extends Component {
     success: false,
     fail: false,
     gameFull: false,
+    currUserRoleId: null
   }
 
   extractRoleIds = () => {
@@ -42,15 +43,24 @@ class Game extends Component {
   }
 
   componentDidMount() {
+    
+
     fetch(`${API_ROOT}/get_roles/${this.props.selectedGame.num_of_players}`)
     .then(resp => resp.json())
     .then(roles => {
       this.setState({
         roles: roles,
         userJoined: this.userJoined()
-      }, ()=> this.setState({
-        remainingRoles: this.remainingRoles()
-      }))
+      }, ()=> {
+        this.setState({remainingRoles: this.remainingRoles()})
+          //need to refactor this!
+        if (this.state.userJoined){
+          const currUserRole = this.props.selectedGame.game_roles.find(gameRole => gameRole.user_id === this.props.currentUser.id)
+          this.setState({
+            currUserRoleId: currUserRole.role_id
+          })
+        }
+      })
     })
   }
   
@@ -88,10 +98,14 @@ class Game extends Component {
         result: "PENDING"
       })
     })
-    .then(this.setState({
-      remainingRoles: remainingRoles,
-      userJoined: true
-    }))
+    .then( resp => resp.json()
+    .then(currUserRole => {
+        this.setState({
+          remainingRoles: remainingRoles,
+          userJoined: true,
+          currUserRoleId: currUserRole.role_id
+        })
+      }))
   }
 
   handleApproval = (e)=>{
@@ -131,6 +145,14 @@ class Game extends Component {
       // Render a countdown
       return <span>Adventure awaits in ... {seconds}</span>;
     }
+  }
+
+  getUserRole = () => { 
+    if (this.state.currUserRoleId)
+    {
+        return this.state.roles.find(role => role.id === this.state.currUserRoleId)
+    }
+    return null
   }
 
   pendingMsg = () => {
@@ -200,10 +222,14 @@ class Game extends Component {
               <Grid.Column floated='right' width={3}>
                 <ChatRoom 
                   selectedGame={this.props.selectedGame} 
-                  currentUser={this.props.currentUser} 
+                  currUserRole={this.getUserRole()} 
                   handleReceivedMessage={this.props.handleReceivedMessage}
                   handleApproval={this.handleApproval}
                   handleSuccess={this.handleSuccess}
+                  approve={approve}
+                  reject={reject}
+                  success={success}
+                  fail={fail}
                   />
               </Grid.Column>
             </Grid.Row>

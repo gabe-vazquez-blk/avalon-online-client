@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Divider, Header, Button} from 'semantic-ui-react'
+import Player from './Player'
 
 class PlayerArea extends Component {
   render() {
@@ -9,7 +10,21 @@ class PlayerArea extends Component {
           Player Area
         </Header>
         <Divider clearing />
-
+        {(this.props.currUserRole) ?
+          <Segment>
+            <Grid.Column key={this.props.currUserRole.id}>
+              <Player 
+                role={this.props.currUserRole}
+                approve={this.props.approve}
+                reject={this.props.reject}
+                success={this.props.success}
+                fail={this.props.fail}
+              />
+            </Grid.Column>
+          </Segment>
+          :
+          null
+        }
         <Segment>
           <Grid columns={2}>
             <Grid.Row>
@@ -30,6 +45,7 @@ class PlayerArea extends Component {
             </Grid.Row>
           </Grid>
         </Segment>
+        
       </div>
     );
   }

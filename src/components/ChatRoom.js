@@ -33,7 +33,8 @@ class ChatRoom extends Component {
       }
    
     render() {
-        const {selectedGame, handleReceivedMessage, handleApproval, handleSuccess} = this.props
+        const {selectedGame, handleReceivedMessage, handleApproval, handleSuccess, currUserRole} = this.props
+        console.log("CURR USER", this.props)
         //const {active} = this.state
         return (
 
@@ -56,6 +57,11 @@ class ChatRoom extends Component {
                     <PlayerArea 
                       handleApproval={handleApproval}
                       handleSuccess={handleSuccess}
+                      currUserRole={currUserRole}
+                      approve={this.props.approve}
+                      reject={this.props.reject}
+                      success={this.props.success}
+                      fail={this.props.fail}
                     />
                   </Segment>
           //      </Sticky>
